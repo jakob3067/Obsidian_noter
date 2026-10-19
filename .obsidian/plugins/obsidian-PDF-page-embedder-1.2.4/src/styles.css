@@ -1,0 +1,64 @@
+/* PDF Page Embed Container */
+.pdf-page-embed-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 1em 0;
+	padding: 1em;
+	background-color: var(--background-secondary);
+	border-radius: 8px;
+	border: 1px solid var(--background-modifier-border);
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+	overflow: hidden; /* Prevent overflow */
+}
+
+.pdf-page-canvas-wrapper {
+	width: 100%;
+	max-width: 100%;
+	display: flex;
+	justify-content: center;
+	overflow: hidden;
+}
+
+.pdf-page-canvas {
+	max-width: 100%;
+	height: auto;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 4px;
+	display: block;
+}
+
+/* Native PDF Viewer Container */
+.pdf-page-native-container {
+	margin: 1em 0;
+	width: 100%;
+}
+
+.pdf-page-native-container iframe {
+	width: 100%;
+	min-height: 600px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 8px;
+}
+
+/* Error State */
+.pdf-page-embed-error {
+	padding: 1em;
+	background-color: var(--background-secondary);
+	border-radius: 8px;
+	border: 1px solid var(--background-modifier-error);
+	margin: 1em 0;
+}
+
+.pdf-error-message {
+	color: var(--text-error);
+	text-align: center;
+	font-size: 0.9em;
+}
+
+/* Dark mode adjustments */
+.theme-dark .pdf-page-canvas {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}

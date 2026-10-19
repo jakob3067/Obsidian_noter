@@ -1,0 +1,1 @@
+fuck eg hader fouierer rækker de kan sutt e mine fucking løg jeg er så fucking træt af det her held og lykke eksammen jakob fuuuckkckckck

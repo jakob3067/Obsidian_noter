@@ -1,0 +1,594 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); color: var(--color-text-primary); }
+.app { padding: 1rem 0; }
+.tab-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.tab { padding: 6px 14px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); font-size: 13px; cursor: pointer; background: var(--color-background-primary); color: var(--color-text-secondary); transition: all 0.15s; }
+.tab.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); font-weight: 500; }
+.tab:hover:not(.active) { background: var(--color-background-secondary); }
+.panel { display: none; }
+.panel.active { display: block; }
+.section { margin-bottom: 1.5rem; }
+.section-title { font-size: 15px; font-weight: 500; margin-bottom: 0.75rem; padding-bottom: 6px; border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; gap: 8px; }
+.badge { font-size: 11px; padding: 2px 8px; border-radius: var(--border-radius-md); font-weight: 400; }
+.badge-blue { background: #E6F1FB; color: #0C447C; }
+.badge-teal { background: #E1F5EE; color: #085041; }
+.badge-amber { background: #FAEEDA; color: #633806; }
+.badge-coral { background: #FAECE7; color: #712B13; }
+.badge-purple { background: #EEEDFE; color: #3C3489; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; }
+.card h3 { font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+.card p, .card li { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+.card ul { padding-left: 1rem; }
+.card ul li { margin-bottom: 3px; }
+code { font-family: var(--font-mono); font-size: 12px; background: var(--color-background-secondary); padding: 1px 5px; border-radius: 4px; color: var(--color-text-primary); }
+pre { font-family: var(--font-mono); font-size: 12px; background: var(--color-background-secondary); padding: 10px 12px; border-radius: var(--border-radius-md); color: var(--color-text-primary); overflow-x: auto; margin-top: 8px; line-height: 1.5; border: 0.5px solid var(--color-border-tertiary); }
+.key-point { background: var(--color-background-secondary); border-left: 2px solid #378ADD; padding: 8px 12px; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; margin-top: 8px; font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; }
+.warn-point { background: var(--color-background-secondary); border-left: 2px solid #EF9F27; padding: 8px 12px; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; margin-top: 8px; font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; }
+.danger-point { background: var(--color-background-secondary); border-left: 2px solid #E24B4A; padding: 8px 12px; border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; margin-top: 8px; font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; }
+</style>
+
+<div class="app">
+  <h2 class="sr-only">Embedded systems exam revision notes</h2>
+  <div class="tab-bar">
+    <div class="tab active" onclick="show('common')">All exams (common)</div>
+    <div class="tab" onclick="show('exam1')">Exam 1</div>
+    <div class="tab" onclick="show('exam2')">Exam 2</div>
+    <div class="tab" onclick="show('exam3')">Exam 3</div>
+  </div>
+
+  <!-- COMMON TOPICS -->
+  <div class="panel active" id="common">
+    <div class="section">
+      <div class="section-title"><i class="ti ti-stack" aria-hidden="true"></i> Queues &amp; Queue objects <span class="badge badge-teal">data structure</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>What is a queue?</h3>
+          <p>A <strong>FIFO</strong> (First In, First Out) data structure used to pass data between tasks or between an ISR and a task safely.</p>
+          <div class="key-point">Items enter at the back, leave from the front. Think of a printer job queue.</div>
+        </div>
+        <div class="card">
+          <h3>Queue object</h3>
+          <p>In FreeRTOS a queue is created and represented as a handle:</p>
+          <pre>QueueHandle_t xQueue;
+xQueue = xQueueCreate(5, sizeof(int));
+
+// Send (from task)
+xQueueSend(xQueue, &val, portMAX_DELAY);
+
+// Receive (blocks until item ready)
+xQueueReceive(xQueue, &val, portMAX_DELAY);</pre>
+          <p style="margin-top:8px">The queue <em>copies</em> data, so the sender's variable can be reused immediately.</p>
+        </div>
+        <div class="card">
+          <h3>Key properties</h3>
+          <ul>
+            <li>Fixed depth (length) set at creation</li>
+            <li>Fixed item size set at creation</li>
+            <li>Thread-safe — the RTOS handles critical sections internally</li>
+            <li>Sending to a full queue blocks (or returns error with timeout 0)</li>
+            <li>ISR variants: <code>xQueueSendFromISR</code></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="ti ti-traffic-lights" aria-hidden="true"></i> Semaphores <span class="badge badge-blue">synchronisation</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>Concept</h3>
+          <p>A semaphore is a signalling mechanism. It has an integer count. Tasks <strong>Take</strong> (decrement) and <strong>Give</strong> (increment) it.</p>
+          <ul style="margin-top:8px">
+            <li><strong>Binary semaphore</strong> — count 0 or 1. Used for task notification / ISR→task sync.</li>
+            <li><strong>Counting semaphore</strong> — count 0…N. Used to track resource availability.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>FreeRTOS example</h3>
+          <pre>SemaphoreHandle_t xSem;
+xSem = xSemaphoreCreateBinary();
+
+// ISR gives, task takes
+void ISR_Handler() {
+  xSemaphoreGiveFromISR(xSem, &woken);
+}
+
+void vTask(void *p) {
+  xSemaphoreTake(xSem, portMAX_DELAY);
+  // do work after signal
+}</pre>
+        </div>
+        <div class="card">
+          <h3>vs Queue?</h3>
+          <p>Semaphore = signal only (no data payload). Queue = signal + data. Use a semaphore when you just need "did event happen?" and a queue when you also need the event's data.</p>
+          <div class="key-point">Counting semaphore can replace a queue of flags, but cannot carry data values.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="ti ti-lock" aria-hidden="true"></i> Mutex <span class="badge badge-amber">mutual exclusion</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>Purpose</h3>
+          <p>A <strong>Mut</strong>ual <strong>Ex</strong>clusion semaphore. Protects a shared resource so only one task accesses it at a time.</p>
+          <div class="key-point">Rule: the task that <em>takes</em> the mutex must be the one that <em>gives</em> it back.</div>
+        </div>
+        <div class="card">
+          <h3>FreeRTOS example</h3>
+          <pre>SemaphoreHandle_t xMutex;
+xMutex = xSemaphoreCreateMutex();
+
+void vTask(void *p) {
+  xSemaphoreTake(xMutex, portMAX_DELAY);
+  // --- critical section ---
+  sharedResource++;
+  // -----------------------
+  xSemaphoreGive(xMutex);
+}</pre>
+        </div>
+        <div class="card">
+          <h3>Priority inheritance</h3>
+          <p>FreeRTOS mutexes include <strong>priority inheritance</strong>: if a low-priority task holds a mutex that a high-priority task is waiting for, the low-priority task temporarily inherits the higher priority to finish faster.</p>
+          <div class="warn-point">Binary semaphores do NOT have priority inheritance — prefer mutex for resource protection.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="ti ti-circle-x" aria-hidden="true"></i> Deadlock <span class="badge badge-coral">hazard</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>Definition</h3>
+          <p>Two or more tasks are each waiting for a resource held by the other — neither can proceed.</p>
+          <pre>// Task A holds M1, wants M2
+// Task B holds M2, wants M1
+// → both block forever</pre>
+        </div>
+        <div class="card">
+          <h3>Four necessary conditions</h3>
+          <ul>
+            <li><strong>Mutual exclusion</strong> — resource can't be shared</li>
+            <li><strong>Hold and wait</strong> — task holds one, waits for another</li>
+            <li><strong>No preemption</strong> — resource not forcibly taken</li>
+            <li><strong>Circular wait</strong> — cycle of dependencies</li>
+          </ul>
+          <div class="danger-point">All four must be present for deadlock. Break any one to prevent it.</div>
+        </div>
+        <div class="card">
+          <h3>Prevention strategies</h3>
+          <ul>
+            <li>Always acquire mutexes in the <strong>same order</strong> across all tasks</li>
+            <li>Use <strong>timeouts</strong> instead of <code>portMAX_DELAY</code></li>
+            <li>Use a single mutex to guard multiple resources together</li>
+            <li>Detect via watchdog timers in practice</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXAM 1 -->
+  <div class="panel" id="exam1">
+    <div class="section">
+      <div class="section-title"><i class="ti ti-arrows-right-left" aria-hidden="true"></i> State machines <span class="badge badge-purple">Exam 1</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>FSM basics</h3>
+          <p>A <strong>Finite State Machine</strong> models a system as a set of states with transitions triggered by events/inputs.</p>
+          <ul style="margin-top:8px">
+            <li>States — what the system is doing now</li>
+            <li>Transitions — conditions that change state</li>
+            <li>Actions — outputs on entry/exit/transition</li>
+          </ul>
+          <div class="key-point">Moore machine: output depends on state only. Mealy machine: output depends on state + input.</div>
+        </div>
+        <div class="card">
+          <h3>C implementation</h3>
+          <pre>typedef enum { IDLE, RUNNING, FAULT } State;
+State state = IDLE;
+
+void update(Event e) {
+  switch (state) {
+    case IDLE:
+      if (e == START) state = RUNNING;
+      break;
+    case RUNNING:
+      if (e == ERROR) state = FAULT;
+      if (e == STOP)  state = IDLE;
+      break;
+    case FAULT:
+      if (e == RESET) state = IDLE;
+      break;
+  }
+}</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="ti ti-cpu" aria-hidden="true"></i> Cortex-M4 <span class="badge badge-purple">Exam 1</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>Key features</h3>
+          <ul>
+            <li>32-bit ARM core, Harvard-ish architecture</li>
+            <li>Thumb-2 instruction set (mix of 16/32-bit)</li>
+            <li>16 general-purpose registers R0–R15</li>
+            <li>R13 = SP (stack pointer), R14 = LR, R15 = PC</li>
+            <li>FPU (single precision float)</li>
+            <li>Nested Vectored Interrupt Controller (NVIC)</li>
+            <li>SysTick timer — used by RTOS for tick interrupt</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Memory map regions</h3>
+          <ul>
+            <li><code>0x00000000</code> — Code (Flash)</li>
+            <li><code>0x20000000</code> — SRAM</li>
+            <li><code>0x40000000</code> — Peripherals</li>
+            <li><code>0xE0000000</code> — Private peripheral bus (NVIC, SysTick)</li>
+          </ul>
+          <div class="key-point">Peripheral registers are memory-mapped — accessed like normal variables via pointers.</div>
+        </div>
+        <div class="card">
+          <h3>Exception/interrupt model</h3>
+          <ul>
+            <li>Vector table at start of Flash — each entry is a handler address</li>
+            <li>Priority levels 0 (highest) to 255 (lowest)</li>
+            <li>Automatic context save (R0–R3, R12, LR, PC, xPSR) on entry</li>
+            <li>Return via special EXC_RETURN value in LR</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="ti ti-binary" aria-hidden="true"></i> Bit manipulation <span class="badge badge-purple">Exam 1</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>Core operations</h3>
+          <pre>uint32_t reg = GPIOA->ODR;
+
+// Set bit 5
+reg |=  (1U << 5);
+
+// Clear bit 5
+reg &= ~(1U << 5);
+
+// Toggle bit 5
+reg ^=  (1U << 5);
+
+// Test bit 5
+if (reg & (1U << 5)) { ... }
+
+// Read field [7:4]
+uint8_t field = (reg >> 4) & 0x0F;</pre>
+        </div>
+        <div class="card">
+          <h3>Bit masks — common patterns</h3>
+          <ul>
+            <li>Set multiple bits: <code>reg |= 0x0F</code> (set lower nibble)</li>
+            <li>Clear and set field: <code>reg = (reg &amp; ~mask) | val</code></li>
+            <li><code>1U</code> not <code>1</code> — prevents sign-extension on 32-bit shift</li>
+          </ul>
+          <div class="warn-point">Always use unsigned types for bit operations to avoid undefined behaviour on signed shift.</div>
+        </div>
+        <div class="card">
+          <h3>Peripheral register example (STM32)</h3>
+          <pre>// Enable GPIOA clock (RCC AHB1ENR bit 0)
+RCC->AHB1ENR |= (1U << 0);
+
+// Set PA5 as output (MODER bits [11:10] = 01)
+GPIOA->MODER &= ~(3U << 10);
+GPIOA->MODER |=  (1U << 10);
+
+// Toggle PA5
+GPIOA->ODR ^= (1U << 5);</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="ti ti-tools" aria-hidden="true"></i> Build process <span class="badge badge-purple">Exam 1</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>Stages</h3>
+          <ul>
+            <li><strong>Pre-processing</strong> — expands <code>#include</code>, <code>#define</code>, macros → <code>.i</code> file</li>
+            <li><strong>Compilation</strong> — C → assembly → <code>.s</code> file</li>
+            <li><strong>Assembly</strong> — assembler → object file <code>.o</code></li>
+            <li><strong>Linking</strong> — combines <code>.o</code> files + libraries → <code>.elf</code> / <code>.bin</code></li>
+            <li><strong>Locating</strong> — linker script maps sections to addresses (Flash / SRAM)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Linker script key sections</h3>
+          <ul>
+            <li><code>.text</code> — executable code (Flash)</li>
+            <li><code>.rodata</code> — read-only data / const (Flash)</li>
+            <li><code>.data</code> — initialised globals (copied Flash→SRAM at startup)</li>
+            <li><code>.bss</code> — uninitialised globals (zeroed in SRAM)</li>
+            <li><code>.stack</code> / <code>.heap</code> — runtime memory (SRAM)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Cross-compilation toolchain</h3>
+          <ul>
+            <li><code>arm-none-eabi-gcc</code> — cross compiler</li>
+            <li><code>arm-none-eabi-ld</code> — linker</li>
+            <li><code>arm-none-eabi-objcopy</code> — ELF → binary/hex</li>
+            <li><code>arm-none-eabi-size</code> — section sizes</li>
+            <li><code>make</code> / <code>CMake</code> — build automation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXAM 2 -->
+  <div class="panel" id="exam2">
+    <div class="section">
+      <div class="section-title"><i class="ti ti-clock" aria-hidden="true"></i> RTCS &amp; Concept of tasks <span class="badge badge-teal">Exam 2</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>RTCS — Real-Time Computing System</h3>
+          <p>A system that must respond to events within a guaranteed time bound (deadline). Two types:</p>
+          <ul style="margin-top:8px">
+            <li><strong>Hard real-time</strong> — missing a deadline = system failure (airbag ECU)</li>
+            <li><strong>Soft real-time</strong> — missing a deadline = degraded performance (video stream)</li>
+          </ul>
+          <div class="key-point">Determinism is the key property — worst-case execution time (WCET) must be known.</div>
+        </div>
+        <div class="card">
+          <h3>Concept of tasks</h3>
+          <p>A <strong>task</strong> (or thread) is an independent unit of execution with its own:</p>
+          <ul style="margin-top:8px">
+            <li>Stack</li>
+            <li>Program counter</li>
+            <li>Priority level</li>
+            <li>State (Running / Ready / Blocked / Suspended)</li>
+          </ul>
+          <pre>void vMyTask(void *pvParam) {
+  for (;;) {
+    // task body
+    vTaskDelay(pdMS_TO_TICKS(100));
+  }
+}</pre>
+        </div>
+        <div class="card">
+          <h3>Task states</h3>
+          <ul>
+            <li><strong>Running</strong> — currently executing on the CPU</li>
+            <li><strong>Ready</strong> — runnable, waiting for CPU</li>
+            <li><strong>Blocked</strong> — waiting for event/time/resource</li>
+            <li><strong>Suspended</strong> — explicitly paused with <code>vTaskSuspend()</code></li>
+          </ul>
+          <div class="key-point">Only one task runs at a time on a single-core MCU. The scheduler picks which.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="ti ti-chart-dots" aria-hidden="true"></i> Task diagrams <span class="badge badge-teal">Exam 2</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>Types you should know</h3>
+          <ul>
+            <li><strong>State transition diagram</strong> — circles = states, arrows = transitions (Running/Ready/Blocked/Suspended)</li>
+            <li><strong>Timing diagram</strong> — horizontal time axis, shows when each task is running vs blocked</li>
+            <li><strong>Task dependency diagram</strong> — shows which tasks communicate via queues/semaphores</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Reading a timing diagram</h3>
+          <ul>
+            <li>High bar = task is executing (Running)</li>
+            <li>Low bar = task is blocked or preempted</li>
+            <li>Tick marks = RTOS tick interrupts</li>
+            <li>Preemption shows as abrupt switch to higher-priority task</li>
+          </ul>
+          <div class="warn-point">On timing diagrams, a task that's ready but not running is being preempted — it's not blocked.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="ti ti-bug" aria-hidden="true"></i> Debugging embedded systems <span class="badge badge-teal">Exam 2</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>Hardware debug (JTAG / SWD)</h3>
+          <ul>
+            <li>SWD (Serial Wire Debug) — 2-wire protocol used on Cortex-M</li>
+            <li>Allows breakpoints, single-step, register/memory inspection</li>
+            <li>Probe: ST-Link, J-Link, CMSIS-DAP</li>
+            <li>IDE: GDB + OpenOCD or Keil uVision</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>RTOS-aware debugging</h3>
+          <ul>
+            <li>View task list — name, state, stack high-water mark</li>
+            <li>Stack overflow detection: <code>configCHECK_FOR_STACK_OVERFLOW</code></li>
+            <li>Trace tools: Percepio Tracealyzer, Segger SystemView</li>
+            <li>Printf via SWO/ITM or UART (careful in ISRs)</li>
+          </ul>
+          <div class="key-point">Stack high-water mark tells you how close you came to overflow — size stacks with margin.</div>
+        </div>
+        <div class="card">
+          <h3>Common bugs</h3>
+          <ul>
+            <li>Stack overflow → corrupted data or HardFault</li>
+            <li>Race condition → non-deterministic behaviour</li>
+            <li>Priority inversion → high-priority task starved</li>
+            <li>Missed deadlines → watchdog reset</li>
+            <li>ISR too long → other ISRs delayed</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXAM 3 -->
+  <div class="panel" id="exam3">
+    <div class="section">
+      <div class="section-title"><i class="ti ti-server" aria-hidden="true"></i> RTOS &amp; FreeRTOS <span class="badge badge-amber">Exam 3</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>What an RTOS provides</h3>
+          <ul>
+            <li>Scheduler (decides which task runs)</li>
+            <li>Inter-task communication (queues, semaphores, mutexes, event groups)</li>
+            <li>Timing services (<code>vTaskDelay</code>, <code>xTaskGetTickCount</code>)</li>
+            <li>Memory management (<code>pvPortMalloc</code>)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>FreeRTOS specifics</h3>
+          <ul>
+            <li>Open source, widely used on Cortex-M</li>
+            <li>Config in <code>FreeRTOSConfig.h</code></li>
+            <li>Tick rate set by <code>configTICK_RATE_HZ</code></li>
+            <li>Heap schemes: heap_1 (no free) … heap_5 (fragmented RAM)</li>
+            <li>Task priority: 0 = lowest, <code>configMAX_PRIORITIES-1</code> = highest</li>
+          </ul>
+          <div class="key-point">The idle task always runs when nothing else is ready — never starve it (keep priority 0).</div>
+        </div>
+        <div class="card">
+          <h3>Scheduler algorithms</h3>
+          <ul>
+            <li><strong>Preemptive</strong> — highest ready task always runs (default FreeRTOS)</li>
+            <li><strong>Cooperative</strong> — task yields voluntarily</li>
+            <li><strong>Round-robin</strong> — equal-priority tasks share time in slices</li>
+          </ul>
+          <div class="warn-point">With preemption on, any task can be interrupted at any tick — protect shared data with mutexes!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="ti ti-player-skip-forward" aria-hidden="true"></i> Preemption <span class="badge badge-amber">Exam 3</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>How it works</h3>
+          <p>At each RTOS tick (or when a higher-priority task becomes ready), the scheduler checks if the current task should continue.</p>
+          <ul style="margin-top:8px">
+            <li>If a higher-priority task is ready → context switch occurs immediately</li>
+            <li>Current task's registers saved to its TCB stack</li>
+            <li>New task's registers restored</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Context switch</h3>
+          <p>Saves: R0–R12, LR, PC, xPSR, (FPU registers if used)</p>
+          <p style="margin-top:6px">Triggered by:</p>
+          <ul>
+            <li>SysTick ISR (time slice expiry)</li>
+            <li>Task calling blocking API (<code>xQueueReceive</code> etc.)</li>
+            <li>Higher-priority task unblocked from ISR</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="ti ti-code" aria-hidden="true"></i> Assembler <span class="badge badge-amber">Exam 3</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>ARM Thumb-2 essentials</h3>
+          <pre>; Load / Store
+LDR R0, =0x20000000  ; load address
+LDR R1, [R0]         ; load word from address
+STR R1, [R0, #4]     ; store word at address+4
+
+; Arithmetic
+ADD R0, R1, R2       ; R0 = R1 + R2
+SUB R0, R0, #1       ; R0 = R0 - 1
+MUL R0, R1, R2       ; R0 = R1 * R2
+
+; Branch
+CMP R0, #0
+BEQ done             ; branch if equal (zero flag)
+B   loop             ; unconditional branch
+
+; Stack
+PUSH {R4-R7, LR}
+POP  {R4-R7, PC}     ; return by popping into PC</pre>
+        </div>
+        <div class="card">
+          <h3>Calling convention (AAPCS)</h3>
+          <ul>
+            <li>R0–R3: arguments / return value</li>
+            <li>R4–R11: callee-saved (must preserve)</li>
+            <li>R12 (IP): intra-procedure scratch</li>
+            <li>R13 (SP): stack pointer</li>
+            <li>R14 (LR): link register (return address)</li>
+            <li>R15 (PC): program counter</li>
+          </ul>
+          <div class="key-point">If your function uses R4–R11, PUSH them at entry and POP at exit.</div>
+        </div>
+        <div class="card">
+          <h3>Inline assembler in C (GCC)</h3>
+          <pre>// Disable interrupts
+__asm volatile ("cpsid i");
+
+// Enable interrupts
+__asm volatile ("cpsie i");
+
+// No-op / cycle waste
+__asm volatile ("nop");
+
+// Memory barrier
+__asm volatile ("dsb");
+__asm volatile ("isb");</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><i class="ti ti-refresh" aria-hidden="true"></i> Reentrancy <span class="badge badge-amber">Exam 3</span></div>
+      <div class="cards">
+        <div class="card">
+          <h3>What is a reentrant function?</h3>
+          <p>A function that can be safely called by multiple tasks (or interrupted and called again) simultaneously without corrupting results.</p>
+          <div class="key-point">Reentrant functions use only local variables (stack-allocated), no static or global state.</div>
+        </div>
+        <div class="card">
+          <h3>Non-reentrant example</h3>
+          <pre>// BAD — static variable shared
+int counter(void) {
+  static int count = 0;  // ← shared state!
+  return ++count;
+}
+
+// GOOD — reentrant version
+int counter(int *count) {
+  return ++(*count);  // caller owns state
+}</pre>
+        </div>
+        <div class="card">
+          <h3>Common non-reentrant pitfalls</h3>
+          <ul>
+            <li>Static local variables</li>
+            <li>Global variables written without mutex</li>
+            <li>Non-reentrant library functions: <code>strtok</code>, <code>printf</code> (some implementations)</li>
+            <li>Hardware registers accessed without critical section</li>
+          </ul>
+          <div class="danger-point">Standard C <code>malloc</code> / <code>free</code> are NOT reentrant — use FreeRTOS <code>pvPortMalloc</code> in tasks.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>

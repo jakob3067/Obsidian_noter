@@ -1,0 +1,11 @@
+{
+  "pdf-page-embedder:convert-pdf-to-pages": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "P"
+    }
+  ]
+}
