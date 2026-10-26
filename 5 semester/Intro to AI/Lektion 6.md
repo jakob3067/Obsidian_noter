@@ -187,10 +187,22 @@ Reinforcement leraning 2.pdf#40
 ```pdf-page
 Reinforcement leraning 2.pdf#41
 ```
+Optimal
+y=0
+Discuont factor ser ikke langt ud i fremtiden og vil vælge venste vej
+
+Y=0.9 
+Discount factor ser længere frem (0+2 $*$ 0.9)=1.8 $>(1+0*0.9)=1$
+
+Y = 0.5
+discount factor ser lige på begge og vil vælge tilfældigt
+$(0+2 * 0.5)=1 == (1+0*0.5)=1$
+
 
 ```pdf-page
 Reinforcement leraning 2.pdf#42
 ```
+
 
 ```pdf-page
 Reinforcement leraning 2.pdf#43

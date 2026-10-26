@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "5 semester/Data strukture og algoritme/Lektion 5.md",
+                "file": "5 semester/Statestik/Lektion 6.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Lektion 5"
+              "title": "Lektion 6"
             }
           }
         ],
@@ -181,7 +181,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 4
       },
       {
         "id": "d85250a321118352",
@@ -213,7 +213,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "5 semester/Data strukture og algoritme/Lektion 5.md",
+                "file": "5 semester/Statestik/Lektion 6.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -245,12 +245,14 @@
       "copilot:Open Copilot Agent Chat": false
     }
   },
-  "active": "3afe8821bdefcf72",
+  "active": "10c3761463debd20",
   "lastOpenFiles": [
-    "5 semester/Data strukture og algoritme/PP/05_06 - Kapitel 7 - sortering.pdf",
     "5 semester/Statestik/Very AI lektion 5.md",
-    "5 semester/Data strukture og algoritme/Lektion 5.md",
+    "5 semester/Statestik/Lektion 6.md",
     "5 semester/Intro to AI/Lektion 6.md",
+    "5 semester/Intro to AI/Lektion 7.md",
+    "5 semester/Data strukture og algoritme/Lektion 5.md",
+    "5 semester/Data strukture og algoritme/PP/05_06 - Kapitel 7 - sortering.pdf",
     "copilot/skills/obsidian-cli/SKILL.md",
     "copilot/skills/obsidian-cli/LICENSE",
     "copilot/skills/obsidian-cli",
@@ -270,7 +272,6 @@
     "copilot/skills/obsidian-markdown/references/PROPERTIES.md",
     "copilot/skills/obsidian-markdown/references/EMBEDS.md",
     "copilot/skills/obsidian-markdown/references/CALLOUTS.md",
-    "copilot/skills/obsidian-markdown/references",
     "copilot/skills/openartifacts-publish/SKILL.md",
     "copilot/skills/openartifacts-publish/themes/research-memo.md",
     "copilot/skills/copilot-fetch-x/SKILL.md",
@@ -282,7 +283,6 @@
     "5 semester/Statestik/Lektion 2.md",
     "5 semester/Intro to AI/Lektion 3 ex draw.md",
     "5 semester/Intro to AI/Lektion 3.md",
-    "5 semester/Intro to AI/Lektion 2.md",
     "Billeder/Pasted image 20260628122816.png",
     "Billeder/Pasted image 20260628122801.png",
     "Billeder/Pasted image 20260628122708.png",

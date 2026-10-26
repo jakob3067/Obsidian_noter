@@ -318,7 +318,7 @@
   "inlineEditCommands": [],
   "projectList": [],
   "lastDismissedVersion": null,
-  "lastShownStartupVersion": "4.0.15",
+  "lastShownStartupVersion": "4.0.16",
   "passMarkdownImages": true,
   "enableAutonomousAgent": true,
   "enableCustomPromptTemplating": true,
@@ -367,7 +367,7 @@
     "debugFullFrames": true,
     "notificationSound": true,
     "notificationSoundId": "piano",
-    "welcomeDismissed": false,
+    "welcomeDismissed": true,
     "skills": {
       "folder": "copilot/skills",
       "builtinPreferences": {
@@ -420,15 +420,6 @@
     {
       "providerId": "3d6bb035-513b-402e-ac8e-e53395b32ed7",
       "info": {
-        "id": "opencode/longcat-2.5-preview-free",
-        "displayName": "opencode/LongCat 2.5 Preview Free"
-      },
-      "configuredModelId": "e9969610-2bd0-4efb-bdfd-86ddd0c76ab6",
-      "configuredAt": 1791368446009
-    },
-    {
-      "providerId": "3d6bb035-513b-402e-ac8e-e53395b32ed7",
-      "info": {
         "id": "opencode/mimo-v2.6-flash-free",
         "displayName": "opencode/MiMo-V2.6-Flash Free"
       },
@@ -451,15 +442,6 @@
         "displayName": "opencode/Nemotron 3.5 Lightning Free"
       },
       "configuredModelId": "6e29d28a-19c7-4148-b95a-e9f9eb4d7e20",
-      "configuredAt": 1791368446011
-    },
-    {
-      "providerId": "3d6bb035-513b-402e-ac8e-e53395b32ed7",
-      "info": {
-        "id": "opencode/space-bunny-free",
-        "displayName": "opencode/Space Bunny Free"
-      },
-      "configuredModelId": "0bb88054-6c36-42d8-9a41-6c08f2ed2407",
       "configuredAt": 1791368446011
     },
     {
@@ -497,6 +479,15 @@
       },
       "configuredModelId": "678590cd-f4ae-4b61-bb61-b36afc79bd78",
       "configuredAt": 1792404969173
+    },
+    {
+      "providerId": "3d6bb035-513b-402e-ac8e-e53395b32ed7",
+      "info": {
+        "id": "opencode/flint-40b-free",
+        "displayName": "opencode/Flint 40B Free"
+      },
+      "configuredModelId": "78fb14e0-1efe-49a7-9c7a-d239990fc3bf",
+      "configuredAt": 1792664274134
     }
   ],
   "backends": {
@@ -534,10 +525,7 @@
         "description": "A frontier open-weight model.",
         "toolCall": true,
         "reasoning": true,
-        "reasoningEfforts": [
-          "none",
-          "high"
-        ],
+        "reasoningEfforts": [],
         "modalities": {
           "input": [
             "text"
@@ -595,10 +583,7 @@
         "description": "The July 2026 DeepSeek V4 Flash snapshot: fast, cheap, and broadly capable.",
         "toolCall": true,
         "reasoning": true,
-        "reasoningEfforts": [
-          "none",
-          "high"
-        ],
+        "reasoningEfforts": [],
         "modalities": {
           "input": [
             "text"
