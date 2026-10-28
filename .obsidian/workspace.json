@@ -8,49 +8,20 @@
         "type": "tabs",
         "children": [
           {
-            "id": "7d918dcb2ed59734",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "5 semester/Intro to AI/Lektion 3 ex.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Lektion 3 ex"
-            }
-          },
-          {
-            "id": "f138f73018c90b43",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "5 semester/Intro to AI/Lektion 4.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Lektion 4"
-            }
-          },
-          {
             "id": "10c3761463debd20",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "5 semester/Statestik/Lektion 6.md",
+                "file": "5 semester/Intro to AI/Lektion 7.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Lektion 6"
+              "title": "Lektion 7"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -181,7 +152,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 2
       },
       {
         "id": "d85250a321118352",
@@ -213,7 +184,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "5 semester/Statestik/Lektion 6.md",
+                "file": "5 semester/Intro to AI/Lektion 7.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
@@ -247,10 +218,20 @@
   },
   "active": "10c3761463debd20",
   "lastOpenFiles": [
-    "5 semester/Statestik/Very AI lektion 5.md",
-    "5 semester/Statestik/Lektion 6.md",
     "5 semester/Intro to AI/Lektion 6.md",
     "5 semester/Intro to AI/Lektion 7.md",
+    "5 semester/Intro to robotics/Lektion 7.md",
+    "5 semester/Intro to AI/PP/Reinforcement-learning-3.pdf",
+    "5 semester/Intro to robotics/Lektion 3.md",
+    "5 semester/Intro to robotics/Lektion 1.md",
+    "5 semester/Intro to AI/Lektion 3 ex.md",
+    "copilot/skills/copilot-fetch-x/SKILL.md",
+    "HTML import/embedded_exam_notes.md",
+    "5 semester/Intro to robotics/Exercices/UTF-8''weekly1_E26.pdf",
+    "5 semester/Intro to robotics/Exercices/UTF-8''RIC_PE_Bug_Quick-Ros-Guide.pdf",
+    "5 semester/Statestik/Lektion 6.md",
+    "5 semester/Intro to robotics/PP/L7.pdf",
+    "5 semester/Statestik/Very AI lektion 5.md",
     "5 semester/Data strukture og algoritme/Lektion 5.md",
     "5 semester/Data strukture og algoritme/PP/05_06 - Kapitel 7 - sortering.pdf",
     "copilot/skills/obsidian-cli/SKILL.md",
@@ -262,27 +243,16 @@
     "copilot/skills/json-canvas/references",
     "copilot/skills/json-canvas",
     "copilot/skills/obsidian-bases/SKILL.md",
-    "copilot/skills/obsidian-bases/LICENSE",
     "copilot/skills/obsidian-bases/references/EXAMPLES.md",
     "copilot/skills/obsidian-bases/references/FUNCTIONS_REFERENCE.md",
-    "copilot/skills/obsidian-bases/references",
-    "copilot/skills/obsidian-bases",
     "copilot/skills/obsidian-markdown/SKILL.md",
-    "copilot/skills/obsidian-markdown/LICENSE",
     "copilot/skills/obsidian-markdown/references/PROPERTIES.md",
     "copilot/skills/obsidian-markdown/references/EMBEDS.md",
     "copilot/skills/obsidian-markdown/references/CALLOUTS.md",
     "copilot/skills/openartifacts-publish/SKILL.md",
     "copilot/skills/openartifacts-publish/themes/research-memo.md",
-    "copilot/skills/copilot-fetch-x/SKILL.md",
     "copilot/skills/copilot-youtube-transcript/SKILL.md",
     "5 semester/Intro to AI/Lektion 4.md",
-    "5 semester/Data strukture og algoritme/Lekton 2.md",
-    "5 semester/Intro to AI/Lektion 3 ex.md",
-    "5 semester/Statestik/Lektion 3.md",
-    "5 semester/Statestik/Lektion 2.md",
-    "5 semester/Intro to AI/Lektion 3 ex draw.md",
-    "5 semester/Intro to AI/Lektion 3.md",
     "Billeder/Pasted image 20260628122816.png",
     "Billeder/Pasted image 20260628122801.png",
     "Billeder/Pasted image 20260628122708.png",
