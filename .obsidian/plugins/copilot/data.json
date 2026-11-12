@@ -318,7 +318,7 @@
   "inlineEditCommands": [],
   "projectList": [],
   "lastDismissedVersion": null,
-  "lastShownStartupVersion": "4.0.16",
+  "lastShownStartupVersion": "4.0.19",
   "passMarkdownImages": true,
   "enableAutonomousAgent": true,
   "enableCustomPromptTemplating": true,
@@ -429,15 +429,6 @@
     {
       "providerId": "3d6bb035-513b-402e-ac8e-e53395b32ed7",
       "info": {
-        "id": "opencode/nemotron-3-ultra-free",
-        "displayName": "opencode/Nemotron 3 Ultra Free"
-      },
-      "configuredModelId": "48b10f6e-eb0c-4ef7-899b-d64bedda1a8b",
-      "configuredAt": 1791368446010
-    },
-    {
-      "providerId": "3d6bb035-513b-402e-ac8e-e53395b32ed7",
-      "info": {
         "id": "opencode/nemotron-3.5-lightning-free",
         "displayName": "opencode/Nemotron 3.5 Lightning Free"
       },
@@ -488,6 +479,42 @@
       },
       "configuredModelId": "78fb14e0-1efe-49a7-9c7a-d239990fc3bf",
       "configuredAt": 1792664274134
+    },
+    {
+      "providerId": "3d6bb035-513b-402e-ac8e-e53395b32ed7",
+      "info": {
+        "id": "opencode/iceman-free",
+        "displayName": "opencode/Iceman Free"
+      },
+      "configuredModelId": "79c2e9be-48ff-4431-b223-417cbd3f479a",
+      "configuredAt": 1794482515433
+    },
+    {
+      "providerId": "3d6bb035-513b-402e-ac8e-e53395b32ed7",
+      "info": {
+        "id": "opencode/inkling-2-small-free",
+        "displayName": "opencode/Inkling 2 Small Free"
+      },
+      "configuredModelId": "98e5a20e-72d2-4d4d-8e16-b5cab67abc68",
+      "configuredAt": 1794482515443
+    },
+    {
+      "providerId": "3d6bb035-513b-402e-ac8e-e53395b32ed7",
+      "info": {
+        "id": "opencode/longcat-2.5-free",
+        "displayName": "opencode/LongCat 2.5 Free"
+      },
+      "configuredModelId": "4ed5baab-89f9-4b73-8db0-1abb64c1d100",
+      "configuredAt": 1794482515444
+    },
+    {
+      "providerId": "3d6bb035-513b-402e-ac8e-e53395b32ed7",
+      "info": {
+        "id": "opencode/minimax-m3.1-flash-free",
+        "displayName": "opencode/MiniMax M3.1 Flash Free"
+      },
+      "configuredModelId": "63251ed9-d500-4836-87de-303e4eb0d2a4",
+      "configuredAt": 1794482515444
     }
   ],
   "backends": {
@@ -562,25 +589,6 @@
         "id": "deepseek-v4-pro",
         "displayName": "DeepSeek V4 Pro",
         "description": "A top-tier model for the hardest reasoning and agentic tasks.",
-        "toolCall": true,
-        "reasoning": true,
-        "reasoningEfforts": [],
-        "modalities": {
-          "input": [
-            "text"
-          ],
-          "output": [
-            "text"
-          ]
-        },
-        "limits": {
-          "context": 1048576
-        }
-      },
-      {
-        "id": "deepseek-v4-flash-0731",
-        "displayName": "DeepSeek V4 Flash 0731",
-        "description": "The July 2026 DeepSeek V4 Flash snapshot: fast, cheap, and broadly capable.",
         "toolCall": true,
         "reasoning": true,
         "reasoningEfforts": [],
